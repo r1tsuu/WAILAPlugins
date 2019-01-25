@@ -5,11 +5,12 @@ buildscript {
         maven { url = "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
     dependencies { 
-        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT' 
-        classpath 'de.undercouch:gradle-download-task:1.0'
+        classpath 'net.minecraftforge.gradle:ForgeGradle:1.2-SNAPSHOT'
+        classpath "de.undercouch:gradle-download-task:3.1.2"
     }
 }
 
+import de.undercouch.gradle.tasks.download.Download
 apply plugin: 'forge'
 apply plugin: 'maven-publish'
 apply plugin: 'curseforge'
@@ -58,6 +59,8 @@ dependencies {
     compile "info.tehnut.resourcefulcrops:ResourcefulCrops:${rcrops_version}:deobf"
 }
 
+
+
 processResources {
     inputs.property "version", project.version
     inputs.property "mcversion", project.minecraft.version
@@ -104,8 +107,22 @@ task clearOld(type: Delete) {
     delete 'libs'
 }
 
-task downloadLibs(dependsOn: downloadZip, type: Copy) {
+task downloadGregTech(type: Download) {
+    dest new File(buildDir, "gregtech-${gregtech_version}-dev.jar")
+
+    onlyIf {
+        !dest.exists()
+    }
+    src "http://jenkins.usrv.eu:8080/job/Gregtech-5-Unofficial/${gregtech_jenkinsbuild}/artifact/build/libs/gregtech-${gregtech_version}-dev.jar"
+    mustRunAfter "deobfBinJar"
+    mustRunAfter "repackMinecraft"
+}
+
+task downloadLibs(dependsOn: [downloadZip, downloadGregTech], type: Copy) {
     from zipTree(downloadZip.dest)
+    into file('libs')
+
+    from downloadGregTech.dest
     into file('libs')
 }
 
@@ -116,17 +133,3 @@ tasks.sourceMainJava.dependsOn downloadLibs
 tasks.eclipse.dependsOn downloadLibs
 tasks.idea.dependsOn downloadLibs
 
-curse {
-    dependsOn 'reobf'
-    
-    onlyIf {
-        return project.hasProperty('curseforge_key') && System.getenv("CURSE") != null && System.getenv("CURSE").equalsIgnoreCase("true")
-    }
-
-    if (project.hasProperty('curseforge_key')) apiKey = project.curseforge_key
-    projectId = project.curse_projectId
-    changelog = project.hasProperty('changelog') ? project.changelog : ''
-    releaseType = project.curse_type
-    additionalArtifact deobfJar
-    relatedProject 'endercore'
-}

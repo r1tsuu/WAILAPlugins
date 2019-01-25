@@ -60,6 +60,12 @@ wp.config.Forestry.power=Show Engine Power
 wp.config.Forestry.sapling=Show Sapling
 
 
+## Gregtech 5U
+
+wp.config.Gregtech5U.transformer=Show Transformer
+wp.config.Gregtech5U.machineFacing=Show Machine Facing
+
+
 ## Magical Crops ##
 
 wp.config.magicalcrops.showHover=Show Hovering Item
