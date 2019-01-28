@@ -30,6 +30,9 @@ public class PluginIC2Crops extends PluginBase
 
         addConfig("cropName");
         addConfig("cropStats");
+        addConfig("plantInfo");
+        addConfig("envInfo");
+
         registerBody(ICropTile.class);
         registerNBT(ICropTile.class);
     }
@@ -71,21 +74,25 @@ public class PluginIC2Crops extends PluginBase
                     currenttip.add(RED + "WEED" + RESET);
                 }
             }
-            if (scanLevel >= 4 && getConfig("cropStats")) {
-                currenttip.add("Stats -- Growth: " + tag.getByte("growth")
-                               + "  Gain: " + tag.getByte("gain")
-                               + "  Resistance: " + tag.getByte("resistance")
-                              );
-
-                currenttip.add("Plant -- Fertilizer: " + tag.getInteger("fertilizer")
-                              + "  Water: " + tag.getInteger("water")
-                              + "  Weed-Ex: " + tag.getInteger("weedex")
-                         );
-
-                currenttip.add("Environ -- Nutrients: " + tag.getInteger("nutrients")
-                              + "  Humidity: " + tag.getInteger("humidity")
-                              + "  Air-Quality: " + tag.getInteger("airQuality")
-                         );
+            if (scanLevel >= 4) {
+                if (getConfig("cropStats")) {
+                    currenttip.add("Stats -- Growth: " + tag.getByte("growth")
+                                       + "  Gain: " + tag.getByte("gain")
+                                       + "  Resistance: " + tag.getByte("resistance")
+                                  );
+                }
+                if (getConfig("plantInfo")) {
+                    currenttip.add("Plant -- Fertilizer: " + tag.getInteger("fertilizer")
+                                  + "  Water: " + tag.getInteger("water")
+                                  + "  Weed-Ex: " + tag.getInteger("weedex")
+                             );
+                }
+                if (getConfig("envInfo")) {
+                    currenttip.add("Environ -- Nutrients: " + tag.getInteger("nutrients")
+                                       + "  Humidity: " + tag.getInteger("humidity")
+                                       + "  Air-Quality: " + tag.getInteger("airQuality")
+                                  );
+                }
             }
         }
     }

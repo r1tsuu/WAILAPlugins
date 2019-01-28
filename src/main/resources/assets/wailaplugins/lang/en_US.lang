@@ -70,6 +70,8 @@ wp.config.Gregtech5U.machineFacing=Show Machine Facing
 
 wp.config.IC2Crops.cropName=Show Crop Names
 wp.config.IC2Crops.cropStats=Show Crop Stats
+wp.config.IC2Crops.plantInfo=Show Plant Info
+wp.config.IC2Crops.envInfo=Show Environment Info
 
 ## Magical Crops ##
 
