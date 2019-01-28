@@ -1,9 +1,18 @@
-WAILAPlugins [![Build Status](http://ci.tterrag.com/job/WAILAPlugins/badge/icon)](http://ci.tterrag.com/job/WAILAPlugins/)
+WAILAPlugins
 ============
 
 Miscellaneous WAILA plugins for various mods. Requires [EnderCore](http://ci.tterrag.com/job/EnderCore/).
 
 ###Currently Supported:
+
+- IC2 Crops
+  - Name & Stats
+  - Stage, Growth, Growability, Harvestability
+  - Environment Info
+  
+- GT5u
+   - Transformer mode (Step Up/Step Down)
+   - Current side: input/output & EU
 
 - Blood Magic (Ported from ImLookingAtBlood, by Pokefenn)
   - Capacity, LP, and tier of altars

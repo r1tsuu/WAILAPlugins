@@ -118,11 +118,25 @@ task downloadGregTech(type: Download) {
     mustRunAfter "repackMinecraft"
 }
 
-task downloadLibs(dependsOn: [downloadZip, downloadGregTech], type: Copy) {
+task downloadIC2(type: Download) {
+    dest new File(buildDir, "industrialcraft-${ic2_version}-dev.jar")
+
+    onlyIf {
+        !dest.exists()
+    }
+    src "http://jenkins.ic2.player.to/job/IC2_experimental/${ic2_jenkinsbuild}/artifact/build/libs/industrialcraft-${ic2_version}-dev.jar"
+    mustRunAfter "deobfBinJar"
+    mustRunAfter "repackMinecraft"
+}
+
+task downloadLibs(dependsOn: [downloadZip, downloadGregTech, downloadIC2], type: Copy) {
     from zipTree(downloadZip.dest)
     into file('libs')
 
     from downloadGregTech.dest
+    into file('libs')
+
+    from downloadIC2.dest
     into file('libs')
 }
 
