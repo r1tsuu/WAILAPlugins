@@ -45,9 +45,9 @@ public class PluginIC2Crops extends PluginBase
         final byte scanLevel = tag.getByte("scanLevel");
 
         final ICropTile tCrop = tile instanceof ICropTile ? (ICropTile)tile : null;
-        final CropCard crop = tCrop.getCrop();
-        final int cropTier = tCrop == null ? -1 : crop.tier();
+        final CropCard crop = tCrop != null ? tCrop.getCrop() : null;
         if (tCrop != null && crop != null) {
+            final int cropTier = crop.tier();
             if (getConfig("cropName")) {
                 if (scanLevel > 0) {
 
