@@ -69,9 +69,9 @@ public class PluginIC2Crops extends PluginBase
                                    + (cropTier > 0 ? ("  " + canHarvest) : "")
                         );
                     currenttip.add("Stage -- Size: " + tCrop.getSize() + "/" + maxSize + ""
-                                   + "  Growth: " + (int)growth + "%");
+                                   + (size < maxSize ? ("  Growth: " + (int)growth + "%") : ""));
                 } else if (cropTier == 0) {
-                    currenttip.add(RED + "WEED" + RESET);
+                    currenttip.add(RED + "WEED - [420 blaze it]" + RESET);
                 }
             }
             if (scanLevel >= 4) {
