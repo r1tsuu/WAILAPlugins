@@ -5,6 +5,7 @@ import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.BaseTileEntity;
+import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_MultiBlockBase;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Transformer;
 import lombok.SneakyThrows;
 import mcp.mobius.waila.api.IWailaDataAccessor;
@@ -35,6 +36,7 @@ public class PluginGregtech5U extends PluginBase
 
         addConfig("machineFacing");
         addConfig("transformer");
+        addConfig("multiblock");
         registerBody(BaseTileEntity.class);
         registerNBT(BaseTileEntity.class);
     }
@@ -52,6 +54,8 @@ public class PluginGregtech5U extends PluginBase
         final IGregTechTileEntity tBaseMetaTile = tile instanceof IGregTechTileEntity ? ((IGregTechTileEntity) tile) : null;
         final IMetaTileEntity tMeta = tBaseMetaTile != null ? tBaseMetaTile.getMetaTileEntity() : null;
         final BaseMetaTileEntity mBaseMetaTileEntity = tile instanceof  BaseMetaTileEntity ? ((BaseMetaTileEntity) tile) : null;
+        final GT_MetaTileEntity_MultiBlockBase multiBlockBase = tMeta instanceof GT_MetaTileEntity_MultiBlockBase ? ((GT_MetaTileEntity_MultiBlockBase) tMeta) : null;
+
         final boolean showTransformer = tMeta instanceof GT_MetaTileEntity_Transformer && getConfig("transformer");
         final boolean allowedToWork = tag.hasKey("isAllowedToWork") && tag.getBoolean("isAllowedToWork");
 
@@ -83,6 +87,17 @@ public class PluginGregtech5U extends PluginBase
                     currenttip.add(String.format("%s: %s", facingStr, ForgeDirection.getOrientation(facing).name()));
                 }
             }
+
+            if(multiBlockBase != null && getConfig("multiblock")) {
+                if(tag.getBoolean("incompleteStructure")) {
+                    currenttip.add(RED + "** INCOMPLETE STRUCTURE **" + RESET);
+                }
+                currenttip.add((tag.getBoolean("hasProblems") ? (RED + "** HAS PROBLEMS **") : GREEN + "Running Fine") + RESET
+                                               + "  Efficiency: " + tag.getFloat("efficiency") + "%");
+
+                currenttip.add(String.format("Progress: %d s / %d s", tag.getInteger("progress"), tag.getInteger("maxProgress")));
+
+            }
         }
 
     }
@@ -94,6 +109,7 @@ public class PluginGregtech5U extends PluginBase
     {
         final IGregTechTileEntity tBaseMetaTile = tile instanceof IGregTechTileEntity ? ((IGregTechTileEntity) tile) : null;
         final IMetaTileEntity tMeta = tBaseMetaTile != null ? tBaseMetaTile.getMetaTileEntity() : null;
+        final GT_MetaTileEntity_MultiBlockBase multiBlockBase = tMeta instanceof GT_MetaTileEntity_MultiBlockBase ? ((GT_MetaTileEntity_MultiBlockBase) tMeta) : null;
 
         if (tMeta != null) {
             if (tMeta instanceof GT_MetaTileEntity_Transformer) {
@@ -103,6 +119,20 @@ public class PluginGregtech5U extends PluginBase
                 tag.setLong("maxAmperesIn", transformer.maxAmperesIn());
                 tag.setLong("maxEUOutput", transformer.maxEUOutput());
                 tag.setLong("maxAmperesOut", transformer.maxAmperesOut());
+            }
+
+            if (multiBlockBase != null) {
+                final int problems = multiBlockBase.getIdealStatus() - multiBlockBase.getRepairStatus();
+                final float efficiency = multiBlockBase.mEfficiency / 100.0F;
+                final int progress = multiBlockBase.mProgresstime/20;
+                final int maxProgress = multiBlockBase.mMaxProgresstime/20;
+
+                tag.setBoolean("hasProblems", problems > 0);
+                tag.setFloat("efficiency", efficiency);
+                tag.setInteger("progress", progress);
+                tag.setInteger("maxProgress", maxProgress);
+                tag.setBoolean("incompleteStructure", (tBaseMetaTile.getErrorDisplayID() & 64) != 0);
+
             }
         }
 
