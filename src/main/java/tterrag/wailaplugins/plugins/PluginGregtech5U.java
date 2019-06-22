@@ -3,10 +3,12 @@ package tterrag.wailaplugins.plugins;
 import com.enderio.core.common.util.BlockCoord;
 import gregtech.api.interfaces.metatileentity.IMetaTileEntity;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.BaseTileEntity;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_MultiBlockBase;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Transformer;
+import gregtech.common.covers.GT_Cover_Fluidfilter;
 import lombok.SneakyThrows;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaRegistrar;
@@ -37,6 +39,7 @@ public class PluginGregtech5U extends PluginBase
         addConfig("machineFacing");
         addConfig("transformer");
         addConfig("multiblock");
+        addConfig("fluidFilter");
         registerBody(BaseTileEntity.class);
         registerNBT(BaseTileEntity.class);
     }
@@ -58,6 +61,13 @@ public class PluginGregtech5U extends PluginBase
 
         final boolean showTransformer = tMeta instanceof GT_MetaTileEntity_Transformer && getConfig("transformer");
         final boolean allowedToWork = tag.hasKey("isAllowedToWork") && tag.getBoolean("isAllowedToWork");
+
+        if (tBaseMetaTile != null && getConfig("fluidFilter")) {
+            final String filterKey = "filterInfo" + side;
+            if (tag.hasKey(filterKey)) {
+                currenttip.add(tag.getString(filterKey));
+            }
+        }
 
         if (tMeta != null) {
             String facingStr = "Facing";
@@ -87,6 +97,7 @@ public class PluginGregtech5U extends PluginBase
                     currenttip.add(String.format("%s: %s", facingStr, ForgeDirection.getOrientation(facing).name()));
                 }
             }
+
 
             if(multiBlockBase != null && getConfig("multiblock")) {
                 if(tag.getBoolean("incompleteStructure")) {
@@ -133,6 +144,15 @@ public class PluginGregtech5U extends PluginBase
                 tag.setInteger("maxProgress", maxProgress);
                 tag.setBoolean("incompleteStructure", (tBaseMetaTile.getErrorDisplayID() & 64) != 0);
 
+            }
+        }
+        if (tBaseMetaTile != null) {
+            if (tBaseMetaTile instanceof BaseMetaPipeEntity) {
+                for(byte side=0 ; side < 6 ; side++) {
+                    if(tBaseMetaTile.getCoverBehaviorAtSide(side) instanceof GT_Cover_Fluidfilter) {
+                        tag.setString("filterInfo" + side, tBaseMetaTile.getCoverBehaviorAtSide(side).getDescription(side, tBaseMetaTile.getCoverIDAtSide(side), tBaseMetaTile.getCoverDataAtSide(side), tBaseMetaTile));
+                    }
+                }
             }
         }
 
