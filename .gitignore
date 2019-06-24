@@ -13,3 +13,7 @@
 /.gradle
 /.settings
 /libs
+*.bat
+Waila.iws
+Waila.ipr
+Waila.iml
