@@ -64,6 +64,7 @@ wp.config.Forestry.sapling=Show Sapling
 
 wp.config.Gregtech5U.fluidFilter=Show Fluid Filter Info
 wp.config.Gregtech5U.transformer=Show Transformer
+wp.config.Gregtech5U.solar=Show Solar Calcification
 wp.config.Gregtech5U.machineFacing=Show Machine Facing
 wp.config.Gregtech5U.multiblock=Show Multiblock Info
 
