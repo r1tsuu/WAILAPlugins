@@ -9,6 +9,7 @@ import gregtech.api.metatileentity.BaseTileEntity;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_MultiBlockBase;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Transformer;
 import gregtech.common.covers.GT_Cover_Fluidfilter;
+import gregtech.common.tileentities.boilers.GT_MetaTileEntity_Boiler_Solar;
 import lombok.SneakyThrows;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaRegistrar;
@@ -60,6 +61,7 @@ public class PluginGregtech5U extends PluginBase
         final GT_MetaTileEntity_MultiBlockBase multiBlockBase = tMeta instanceof GT_MetaTileEntity_MultiBlockBase ? ((GT_MetaTileEntity_MultiBlockBase) tMeta) : null;
 
         final boolean showTransformer = tMeta instanceof GT_MetaTileEntity_Transformer && getConfig("transformer");
+        final boolean showSolar = tMeta instanceof GT_MetaTileEntity_Boiler_Solar && getConfig("solar");
         final boolean allowedToWork = tag.hasKey("isAllowedToWork") && tag.getBoolean("isAllowedToWork");
 
         if (tBaseMetaTile != null && getConfig("fluidFilter")) {
@@ -72,7 +74,6 @@ public class PluginGregtech5U extends PluginBase
         if (tMeta != null) {
             String facingStr = "Facing";
             if (showTransformer && tag.hasKey("isAllowedToWork")) {
-                final GT_MetaTileEntity_Transformer transformer = (GT_MetaTileEntity_Transformer)tMeta;
                 currenttip.add(
                     String.format(
                         "%s %d(%dA) -> %d(%dA)",
@@ -85,6 +86,10 @@ public class PluginGregtech5U extends PluginBase
                 );
                 facingStr = tag.getBoolean("isAllowedToWork") ? "Input" : "Output";
             }
+            if (showSolar && tag.hasKey("calcificationOutput")) {
+                currenttip.add(String.format((GOLD + "Solar Boiler Output: " + RESET + "%d/%d L/s"), tag.getInteger("calcificationOutput"), tag.getInteger("maxCalcificationOutput")));
+            }
+
             if (mBaseMetaTileEntity != null && getConfig("machineFacing")) {
                 final int facing = mBaseMetaTileEntity.getFrontFacing();
                 if(showTransformer) {
@@ -130,6 +135,10 @@ public class PluginGregtech5U extends PluginBase
                 tag.setLong("maxAmperesIn", transformer.maxAmperesIn());
                 tag.setLong("maxEUOutput", transformer.maxEUOutput());
                 tag.setLong("maxAmperesOut", transformer.maxAmperesOut());
+            } else if (tMeta instanceof GT_MetaTileEntity_Boiler_Solar) {
+                final GT_MetaTileEntity_Boiler_Solar solar = (GT_MetaTileEntity_Boiler_Solar)tMeta;
+                tag.setInteger("calcificationOutput", (solar.getCalcificationOutput()*20/25));
+                tag.setInteger("maxCalcificationOutput", (solar.getBasicOutput()*20/25));
             }
 
             if (multiBlockBase != null) {
