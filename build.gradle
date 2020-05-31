@@ -48,15 +48,19 @@ repositories {
     }
     maven { // RCrops
         name 'TehNut Maven'
-        url "http://tehnut.info/maven"
+        url "https://github.com/TehNut/temporary-maven-thing/"
     }
+	maven {//GTNH
+	name'GTNH'
+	url "http://downloads.gtnewhorizons.com/Mods_for_Jenkins"
+	}
 }
 
 dependencies {
     compile "com.enderio.core:EnderCore:${endercore_version}:dev"
 	compile "mcp.mobius.waila:Waila:${WAILA_version}"
     compile "net.sengir.forestry:forestry_1.7.10:${forestry_version}:dev"
-    compile "info.tehnut.resourcefulcrops:ResourcefulCrops:${rcrops_version}:deobf"
+    compile "resourcefulcrops:ResourcefulCrops:${rcrops_version}:deobf"
 }
 
 
@@ -97,15 +101,6 @@ task deobfJar(type: Jar) {
 
 import de.undercouch.gradle.tasks.download.Download
 
-task downloadZip(type: Download) {
-    src 'http://assets.tterrag.com/WAILAPlugins/libs.zip'
-    dest new File(buildDir, 'libs.zip')
-    onlyIfNewer true
-}
-
-task clearOld(type: Delete) {
-    delete 'libs'
-}
 
 task downloadGregTech(type: Download) {
     dest new File(buildDir, "gregtech-${gregtech_version}-dev.jar")
@@ -129,8 +124,7 @@ task downloadIC2(type: Download) {
     mustRunAfter "repackMinecraft"
 }
 
-task downloadLibs(dependsOn: [downloadZip, downloadGregTech, downloadIC2], type: Copy) {
-    from zipTree(downloadZip.dest)
+task downloadLibs(dependsOn: [downloadGregTech, downloadIC2], type: Copy) {
     into file('libs')
 
     from downloadGregTech.dest
@@ -141,8 +135,6 @@ task downloadLibs(dependsOn: [downloadZip, downloadGregTech, downloadIC2], type:
 }
 
 tasks.build.dependsOn sourceJar, deobfJar
-
-tasks.downloadLibs.dependsOn clearOld
 tasks.sourceMainJava.dependsOn downloadLibs
 tasks.eclipse.dependsOn downloadLibs
 tasks.idea.dependsOn downloadLibs
