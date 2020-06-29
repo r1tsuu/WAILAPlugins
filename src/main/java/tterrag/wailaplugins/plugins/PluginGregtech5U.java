@@ -6,6 +6,7 @@ import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
 import gregtech.api.metatileentity.BaseMetaPipeEntity;
 import gregtech.api.metatileentity.BaseMetaTileEntity;
 import gregtech.api.metatileentity.BaseTileEntity;
+import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_BasicMachine;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_MultiBlockBase;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Transformer;
 import gregtech.common.covers.GT_Cover_Fluidfilter;
@@ -40,6 +41,7 @@ public class PluginGregtech5U extends PluginBase
         addConfig("machineFacing");
         addConfig("transformer");
         addConfig("solar");
+        addConfig("basicmachine");
         addConfig("multiblock");
         addConfig("fluidFilter");
         registerBody(BaseTileEntity.class);
@@ -59,6 +61,7 @@ public class PluginGregtech5U extends PluginBase
         final IGregTechTileEntity tBaseMetaTile = tile instanceof IGregTechTileEntity ? ((IGregTechTileEntity) tile) : null;
         final IMetaTileEntity tMeta = tBaseMetaTile != null ? tBaseMetaTile.getMetaTileEntity() : null;
         final BaseMetaTileEntity mBaseMetaTileEntity = tile instanceof  BaseMetaTileEntity ? ((BaseMetaTileEntity) tile) : null;
+        final GT_MetaTileEntity_BasicMachine BasicMachine = tMeta instanceof GT_MetaTileEntity_BasicMachine ? ((GT_MetaTileEntity_BasicMachine) tMeta) : null;
         final GT_MetaTileEntity_MultiBlockBase multiBlockBase = tMeta instanceof GT_MetaTileEntity_MultiBlockBase ? ((GT_MetaTileEntity_MultiBlockBase) tMeta) : null;
 
         final boolean showTransformer = tMeta instanceof GT_MetaTileEntity_Transformer && getConfig("transformer");
@@ -104,6 +107,9 @@ public class PluginGregtech5U extends PluginBase
                 }
             }
 
+            if (BasicMachine != null && getConfig("basicmachine")) {
+                currenttip.add(String.format("Progress: %d s / %d s", tag.getInteger("progressSingleBlock"), tag.getInteger("maxProgressSingleBlock")));
+            }
 
             if(multiBlockBase != null && getConfig("multiblock")) {
                 if(tag.getBoolean("incompleteStructure")) {
@@ -126,6 +132,7 @@ public class PluginGregtech5U extends PluginBase
     {
         final IGregTechTileEntity tBaseMetaTile = tile instanceof IGregTechTileEntity ? ((IGregTechTileEntity) tile) : null;
         final IMetaTileEntity tMeta = tBaseMetaTile != null ? tBaseMetaTile.getMetaTileEntity() : null;
+        final GT_MetaTileEntity_BasicMachine BasicMachine = tMeta instanceof GT_MetaTileEntity_BasicMachine ? ((GT_MetaTileEntity_BasicMachine) tMeta) : null;
         final GT_MetaTileEntity_MultiBlockBase multiBlockBase = tMeta instanceof GT_MetaTileEntity_MultiBlockBase ? ((GT_MetaTileEntity_MultiBlockBase) tMeta) : null;
 
         if (tMeta != null) {
@@ -140,6 +147,13 @@ public class PluginGregtech5U extends PluginBase
                 final GT_MetaTileEntity_Boiler_Solar solar = (GT_MetaTileEntity_Boiler_Solar)tMeta;
                 tag.setInteger("calcificationOutput", (solar.getCalcificationOutput()*20/25));
                 tag.setInteger("maxCalcificationOutput", (solar.getBasicOutput()*20/25));
+            }
+
+            if (BasicMachine != null) {
+                final int progressSingleBlock = BasicMachine.mProgresstime/20;
+                final int maxProgressSingleBlock = BasicMachine.mMaxProgresstime/20;
+                tag.setInteger("progressSingleBlock", progressSingleBlock);
+                tag.setInteger("maxProgressSingleBlock", maxProgressSingleBlock);
             }
 
             if (multiBlockBase != null) {
