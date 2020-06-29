@@ -41,6 +41,7 @@ public class PluginGregtech5U extends PluginBase
         addConfig("machineFacing");
         addConfig("transformer");
         addConfig("solar");
+        addConfig("basicmachine");
         addConfig("multiblock");
         addConfig("fluidFilter");
         registerBody(BaseTileEntity.class);
