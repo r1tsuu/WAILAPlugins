@@ -36,10 +36,6 @@ file "gradle.properties" withReader {
     ext.config = new ConfigSlurper().parse prop
 }
 
-version = "${config.gt.version}"
-group = "gregtech"
-archivesBaseName = "gregtech"
-
 compileJava {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
