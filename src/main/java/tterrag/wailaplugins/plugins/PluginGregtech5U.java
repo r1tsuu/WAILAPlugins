@@ -145,8 +145,8 @@ public class PluginGregtech5U extends PluginBase
                 tag.setLong("maxAmperesOut", transformer.maxAmperesOut());
             } else if (tMeta instanceof GT_MetaTileEntity_Boiler_Solar) {
                 final GT_MetaTileEntity_Boiler_Solar solar = (GT_MetaTileEntity_Boiler_Solar)tMeta;
-                tag.setInteger("calcificationOutput", (solar.getCalcificationOutput()*20/25));
-                tag.setInteger("maxCalcificationOutput", (solar.getBasicOutput()*20/25));
+                tag.setInteger("calcificationOutput", (solar.getProductionPerSecond()));
+                tag.setInteger("maxCalcificationOutput", (solar.getMaxOutputPerSecond()));
             }
 
             if (BasicMachine != null) {
