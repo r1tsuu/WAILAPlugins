@@ -76,10 +76,16 @@ public class PluginIC2Crops extends PluginBase
             }
             if (scanLevel >= 4) {
                 if (getConfig("cropStats")) {
-                    currenttip.add("Stats -- Growth: " + tag.getByte("growth")
-                                       + "  Gain: " + tag.getByte("gain")
-                                       + "  Resistance: " + tag.getByte("resistance")
-                                  );
+                    if (tag.getByte("growth") >= 24)
+                        currenttip.add("Stats -- Growth: " + RED + tag.getByte("growth") + RESET
+                                           + "  Gain: " + tag.getByte("gain")
+                                           + "  Resistance: " + tag.getByte("resistance")
+                                      );
+                    else
+                        currenttip.add("Stats -- Growth: " + tag.getByte("growth")
+                                           + "  Gain: " + tag.getByte("gain")
+                                           + "  Resistance: " + tag.getByte("resistance")
+                                      );
                 }
                 if (getConfig("plantInfo")) {
                     currenttip.add("Plant -- Fertilizer: " + tag.getInteger("fertilizer")
