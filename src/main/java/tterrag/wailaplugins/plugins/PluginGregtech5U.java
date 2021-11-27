@@ -183,8 +183,8 @@ public class PluginGregtech5U extends PluginBase
         if (tBaseMetaTile != null) {
             if (tBaseMetaTile instanceof BaseMetaPipeEntity) {
                 for(byte side=0 ; side < 6 ; side++) {
-                    if(tBaseMetaTile.getCoverBehaviorAtSide(side) instanceof GT_Cover_Fluidfilter) {
-                        tag.setString("filterInfo" + side, tBaseMetaTile.getCoverBehaviorAtSide(side).getDescription(side, tBaseMetaTile.getCoverIDAtSide(side), tBaseMetaTile.getCoverDataAtSide(side), tBaseMetaTile));
+                    if(tBaseMetaTile.getComplexCoverDataAtSide(side) instanceof GT_Cover_Fluidfilter) {
+                        tag.setString("filterInfo" + side, ((GT_Cover_Fluidfilter) tBaseMetaTile.getComplexCoverDataAtSide(side)).getDescription(side, tBaseMetaTile.getCoverIDAtSide(side), tBaseMetaTile.getComplexCoverDataAtSide(side), tBaseMetaTile));
                     }
                 }
             }
