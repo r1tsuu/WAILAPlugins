@@ -122,6 +122,7 @@ dependencies {
     compile "mcp.mobius.waila:Waila:${WAILA_version}"
     compile "net.sengir.forestry:forestry_1.7.10:${forestry_version}:dev"
     compile "resourcefulcrops:ResourcefulCrops:${rcrops_version}:deobf"
+	compile "com.github.GTNewHorizons:StructureLib:${config.structurelib.version}:deobf"
 }
 
 
