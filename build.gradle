@@ -15,7 +15,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.github.GTNH2:ForgeGradle:FG_1.2-SNAPSHOT'
+        classpath 'com.github.GTNewHorizons:ForgeGradle:1.2.4'
     }
 }
 
@@ -82,11 +82,6 @@ repositories {
     maven { // Forestry
         name = 'Player Maven'
         url = "https://maven.ic2.player.to"
-    }
-
-    maven {
-        name = "gt"
-        url = "https://gregtech.overminddl1.com/"
     }
     maven {
         name = "chickenbones"
@@ -190,4 +185,3 @@ tasks.build.dependsOn sourceJar, deobfJar
 tasks.sourceMainJava.dependsOn downloadLibs
 tasks.eclipse.dependsOn downloadLibs
 tasks.idea.dependsOn downloadLibs
-
