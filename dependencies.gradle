@@ -4,7 +4,7 @@ dependencies {
     compile("com.github.GTNewHorizons:GT5-Unofficial:master-SNAPSHOT:dev")
     
     compile("com.github.GTNewHorizons:EnderCore:master-SNAPSHOT:dev")
-    compile("com.github.GTNewHorizons:Waila:master-SNAPSHOT:dev")
+    compile("com.github.GTNewHorizons:waila:master-SNAPSHOT:dev")
     compile("com.github.GTNewHorizons:ForestryMC:master-SNAPSHOT:dev")
     compile("com.github.GTNewHorizons:StructureLib:master-SNAPSHOT:dev")
     compile("com.github.GTNewHorizons:Railcraft:master-SNAPSHOT:dev")
