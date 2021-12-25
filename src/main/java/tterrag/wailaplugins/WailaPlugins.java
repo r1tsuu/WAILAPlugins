@@ -21,9 +21,9 @@ import static tterrag.wailaplugins.WailaPlugins.*;
 @Mod(modid = MODID, name = NAME, version = VERSION, dependencies = DEPENDENCIES, guiFactory = "tterrag.wailaplugins.client.config.WPConfigFactory")
 public class WailaPlugins implements IEnderMod
 {
-    public static final String MODID   = "wailaplugins";
-    public static final String NAME    = "WAILA Plugins";
-    public static final String VERSION = "@VERSION@";
+    public static final String MODID   = "GRADLETOKEN_MODID";
+    public static final String NAME    = "GRADLETOKEN_MODNAME";
+    public static final String VERSION = "GRADLETOKEN_VERSION";
     public static final String DEPENDENCIES = "after:endercore;after:Waila;";
 
     @SidedProxy(serverSide = "tterrag.wailaplugins.proxy.CommonProxy", clientSide = "tterrag.wailaplugins.proxy.ClientProxy")

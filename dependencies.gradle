@@ -1,0 +1,18 @@
+// Add your dependencies here
+
+dependencies {
+    compile("com.github.GTNewHorizons:GT5-Unofficial:master-SNAPSHOT:dev")
+    
+    compile("com.github.GTNewHorizons:EnderCore:master-SNAPSHOT:dev")
+    compile("com.github.GTNewHorizons:Waila:master-SNAPSHOT:dev")
+    compile("com.github.GTNewHorizons:ForestryMC:master-SNAPSHOT:dev")
+    compile("com.github.GTNewHorizons:StructureLib:master-SNAPSHOT:dev")
+    compile("com.github.GTNewHorizons:Railcraft:master-SNAPSHOT:dev")
+    compile("com.github.GTNewHorizons:BloodMagic:master-SNAPSHOT:dev")
+    compile("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:master-SNAPSHOT:dev")
+
+    // Do not set to compile instead of compileOnly! It will not run in dev!
+    compileOnly("curse.maven:pams-harvestcraft-221857:2270206") {
+        transitive = false
+    }
+}

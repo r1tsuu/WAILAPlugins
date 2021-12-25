@@ -24,12 +24,6 @@ Miscellaneous WAILA plugins for various mods. Requires [EnderCore](http://ci.tte
   - Current ritual of master ritual stone
   - Current block/item in teleposer
 
-- Flaxbeard's Steam Power
-  - Fluids in crucibles
-  - Pressure percentages on gauges
-  - Steam amounts in tanks
-  - State of valve pipes
-  
 - Forestry
   - Sapling genomes
   - Pollinated leaves info
@@ -38,16 +32,6 @@ Miscellaneous WAILA plugins for various mods. Requires [EnderCore](http://ci.tte
   - Progress percentage of current breed
   - RF in of engines
   - Heat in engines
-  
-- Magical Crops
-  - Growth percentage and hovering icon of the product of the plant
-  
-- Mekanism
-  - Energy amount in all energy storing blocks
-  - Gas stored in gas storage blocks
-  - Fluid stored in portable tanks
-  - Multiplier on salination plant
-  - Type of factories
   
 - Pam's Harvestcraft
   - Adds a growth percentage to tree fruits
@@ -65,12 +49,6 @@ Miscellaneous WAILA plugins for various mods. Requires [EnderCore](http://ci.tte
   - Info for certain gates such as Timer, Repeater, etc.
   - Strength of red alloy wires
 
-- Resourceful Crops
-  - Hovering icon of the product of the plant
-  
-- Thermal Expansion
-  - Augment info
-  
 ###Contributing
 
 Simply clone this project and run the usual gradle tasks, and all depended on mods will be automatically downloaded and added to your classpath. Easy!
