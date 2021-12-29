@@ -1,18 +1,47 @@
 // Add your dependencies here
 
 dependencies {
-    compile("com.github.GTNewHorizons:GT5-Unofficial:master-SNAPSHOT:dev")
-    
-    compile("com.github.GTNewHorizons:EnderCore:master-SNAPSHOT:dev")
     compile("com.github.GTNewHorizons:waila:master-SNAPSHOT:dev")
-    compile("com.github.GTNewHorizons:ForestryMC:master-SNAPSHOT:dev")
-    compile("com.github.GTNewHorizons:StructureLib:master-SNAPSHOT:dev")
-    compile("com.github.GTNewHorizons:Railcraft:master-SNAPSHOT:dev")
-    compile("com.github.GTNewHorizons:BloodMagic:master-SNAPSHOT:dev")
-    compile("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:master-SNAPSHOT:dev")
 
-    // Do not set to compile instead of compileOnly! It will not run in dev!
+    compileOnly("com.github.GTNewHorizons:GT5-Unofficial:master-SNAPSHOT:dev") {
+        transitive = false
+    }
+    compile("com.github.GTNewHorizons:EnderCore:master-SNAPSHOT:dev") {
+        transitive = false
+    }
+    compileOnly("com.github.GTNewHorizons:ForestryMC:master-SNAPSHOT:dev") {
+        transitive = false
+    }
+    compileOnly("com.github.GTNewHorizons:StructureLib:master-SNAPSHOT:dev") {
+        transitive = false
+    }
+    compileOnly("com.github.GTNewHorizons:Railcraft:master-SNAPSHOT:dev") {
+        transitive = false
+    }
+    compileOnly("com.github.GTNewHorizons:BloodMagic:master-SNAPSHOT:dev") {
+        transitive = false
+    }
+    compileOnly("com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:master-SNAPSHOT:dev") {
+        transitive = false
+    }
+
     compileOnly("curse.maven:pams-harvestcraft-221857:2270206") {
         transitive = false
     }
+    compileOnly("curse.maven:extra-utilities-225561:2264384") {
+        transitive = false
+    }
+    compileOnly("net.industrial-craft:industrialcraft-2:2.2.828-experimental:dev") {
+        transitive = false
+    }
+    compileOnly("com.mod-buildcraft:buildcraft:7.1.23:dev") {
+        transitive = false
+    }
+    compileOnly("org.projectlombok:lombok:1.18.22") {
+        transitive = false
+    }
+    compileOnly files("dependencies/redlogic-59.1.13.jar")
+    compileOnly files("dependencies/immibis-microblocks-59.1.2.jar")
+
+    annotationProcessor("org.projectlombok:lombok:1.18.22")
 }
