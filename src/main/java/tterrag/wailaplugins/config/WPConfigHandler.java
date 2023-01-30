@@ -1,6 +1,7 @@
 package tterrag.wailaplugins.config;
 
 import net.minecraftforge.common.config.Property;
+
 import tterrag.wailaplugins.WailaPlugins;
 
 import com.enderio.core.common.config.AbstractConfigHandler;
@@ -9,12 +10,11 @@ import com.enderio.core.common.config.annot.Comment;
 import com.enderio.core.common.config.annot.Config;
 import com.enderio.core.common.config.annot.Range;
 
-public class WPConfigHandler extends AbstractConfigHandler
-{
+public class WPConfigHandler extends AbstractConfigHandler {
+
     public static final WPConfigHandler INSTANCE = new WPConfigHandler();
 
-    private WPConfigHandler()
-    {
+    private WPConfigHandler() {
         super(WailaPlugins.MODID);
     }
 
@@ -28,10 +28,8 @@ public class WPConfigHandler extends AbstractConfigHandler
     // blood magic
     @Config(SECTION_BM)
     @Range(min = 0, max = 2)
-    @Comment({ "Determines the behavior of the shown info.\n", 
-            "0 - No sigil needed at all.", 
-            "1 - Need sigil in your inventory",
-            "2 - Need sigil in your hand." })
+    @Comment({ "Determines the behavior of the shown info.\n", "0 - No sigil needed at all.",
+            "1 - Need sigil in your inventory", "2 - Need sigil in your hand." })
     public static int sigilRequirement = 1;
     @Config(SECTION_BM)
     @Comment({ "Determines how the Sigil of Sight affects the altar info.\n",
@@ -45,8 +43,7 @@ public class WPConfigHandler extends AbstractConfigHandler
     public static boolean meterInHand = true;
 
     @Override
-    protected void init()
-    {
+    protected void init() {
         addSection(SECTION_BM);
         addSection(SECTION_RC);
         addSection(SECTION_PLUGINS);
@@ -55,33 +52,28 @@ public class WPConfigHandler extends AbstractConfigHandler
     }
 
     @Override
-    protected void reloadNonIngameConfigs()
-    {
+    protected void reloadNonIngameConfigs() {
         ;
     }
 
     @Override
-    protected void reloadIngameConfigs()
-    {
+    protected void reloadIngameConfigs() {
         ;
     }
 
-    public boolean isPluginEnabled(String modid)
-    {
+    public boolean isPluginEnabled(String modid) {
         activateSection(SECTION_PLUGINS);
         boolean ret = getPropFor(modid).getBoolean();
         saveConfigFile();
         return ret;
     }
 
-    public void disablePlugin(String modid)
-    {
+    public void disablePlugin(String modid) {
         getProperty(modid, false).set(false);
         saveConfigFile();
     }
 
-    private Property getPropFor(String modid)
-    {
+    private Property getPropFor(String modid) {
         activateSection(SECTION_PLUGINS);
         Property prop = getProperty(modid, true);
         prop.comment = "Should the plugin for the mod with modid '" + modid + "' be loaded";
