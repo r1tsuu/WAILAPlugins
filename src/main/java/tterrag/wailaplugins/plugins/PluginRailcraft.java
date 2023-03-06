@@ -208,9 +208,9 @@ public class PluginRailcraft extends PluginBase implements IWailaEntityProvider 
             } else if (waterTankRateCalculator.getIsSnowing()) {
                 currenttip.add(lang.localize("snowingRate", snowingOrRainingRate));
             }
-            float outsideRate = waterTankRateCalculator.getOutsideRate();
+
             if (waterTankRateCalculator.getIsOutside()) {
-                currenttip.add(lang.localize("cantSeeTheSkyRate", outsideRate));
+                currenttip.add(lang.localize("cantSeeTheSkyRate", waterTankRateCalculator.getOutsideRate()));
             }
         }
 
